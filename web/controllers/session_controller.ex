@@ -14,8 +14,13 @@ defmodule Kenbruen.SessionController do
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, "Invalid username/password combination")
-        |> render("new.html")    
+        |> render("new.html")
     end
   end
 
+  def delete(conn, _) do
+    conn
+    |> Kenbruen.Auth.logout()
+    |> redirect(to: page_path(conn, :index))
+  end
 end
