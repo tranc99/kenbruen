@@ -2,8 +2,9 @@ defmodule Kenbruen.UserController do
   use Kenbruen.Web, :controller
   import Kenbruen.UserView
   alias Kenbruen.User
+  plug :authenticate when action in [:index, :show]
 
-  defp authenticate(conn) do
+  defp authenticate(conn, _opts) do
     if conn.assigns.current_user do
       conn
     else
@@ -15,13 +16,8 @@ defmodule Kenbruen.UserController do
   end
 
   def index(conn, _params) do
-    case authenticate(conn) do
-      %Plug.Conn{halted: true} =conn ->
-        conn
-      conn ->
-        users = Repo.all(Kenbruen.User)
-        render conn, "index.html", users: users
-    end
+    users = Repo.all(Kenbruen.User)
+    render conn, "index.html", users: users
   end
 
   def show(conn, %{"id" => id}) do
