@@ -35,4 +35,10 @@ defmodule Kenbruen.Auth do
     end
   end
 
+  # logout the user
+  def logout(conn, user) do
+    conn
+    |> assign(:current_user, user)
+    |> put_session(:user_id, user.id)
+  end
 end
