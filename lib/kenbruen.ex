@@ -9,7 +9,7 @@ defmodule Kenbruen do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      # supervisor(Kenbruen.Repo, []),
+      supervisor(Kenbruen.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Kenbruen.Endpoint, []),
       # Start your own worker by calling: Kenbruen.Worker.start_link(arg1, arg2, arg3)
