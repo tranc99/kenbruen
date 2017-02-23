@@ -1,6 +1,8 @@
 defmodule Kenbruen.Auth do
   import Plug.Conn
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+  import Phoenix.Controller
+  alias Kenbruen.Router.Helpers
 
   def init(opts) do
     Keyword.fetch!(opts, :repo)
@@ -39,4 +41,17 @@ defmodule Kenbruen.Auth do
   def logout(conn) do
     configure_session(conn, drop: true)
   end
+
+  # plug for authenticating a user
+  def authenticate(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access that page")
+      |> redirect(to: page_path(conn, :index))
+      |> halt()
+    end
+  end
+
 end
