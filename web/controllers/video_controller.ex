@@ -9,7 +9,10 @@ defmodule Kenbruen.VideoController do
   end
 
   def new(conn, _params) do
-    changeset = Video.changeset(%Video{})
+    changeset =
+      conn.assigns.current_user
+      |> build_assoc(:videos)
+      |> Video.changeset()
     render(conn, "new.html", changeset: changeset)
   end
 
