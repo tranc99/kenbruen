@@ -18,5 +18,6 @@ defmodule Kenbruen.Video do
     struct
     |> cast(params, [:url, :title, :description, :category_id])
     |> validate_required([:url, :title, :description])
+    |> assoc_constraint(:category)
   end
 end
