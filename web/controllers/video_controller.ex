@@ -2,6 +2,9 @@ defmodule Kenbruen.VideoController do
   use Kenbruen.Web, :controller
 
   alias Kenbruen.Video
+  alias Kenbruen.Category
+
+  plug :load_categories when action in [:new, :create, :edit, :update]
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn),
