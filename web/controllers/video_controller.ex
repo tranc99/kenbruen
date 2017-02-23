@@ -62,7 +62,7 @@ defmodule Kenbruen.VideoController do
     end
   end
 
-  def delete(conn, %{"id" => id}), user do
+  def delete(conn, %{"id" => id}, user) do
     video = Repo.get!(user_videos(user), id)
 
     # Here we use delete! (with a bang) because we expect
