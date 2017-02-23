@@ -36,6 +36,7 @@ defmodule Kenbruen.Web do
 
       import Kenbruen.Router.Helpers
       import Kenbruen.Gettext
+      import Kenbruen.Auth, only: [authenticate_user: 2]
     end
   end
 
@@ -58,6 +59,8 @@ defmodule Kenbruen.Web do
   def router do
     quote do
       use Phoenix.Router
+
+      import Kenbruen.Auth, only: [authenticate_user: 2]
     end
   end
 

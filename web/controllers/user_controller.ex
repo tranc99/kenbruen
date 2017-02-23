@@ -2,7 +2,7 @@ defmodule Kenbruen.UserController do
   use Kenbruen.Web, :controller
   import Kenbruen.UserView
   alias Kenbruen.User
-  plug :authenticate when action in [:index, :show]
+  plug :authenticate_user when action in [:index, :show]
 
   def index(conn, _params) do
     users = Repo.all(Kenbruen.User)
