@@ -43,7 +43,7 @@ defmodule Kenbruen.Auth do
   end
 
   # plug for authenticating a user
-  def authenticate(conn, _opts) do
+  def authenticate_user(conn, _opts) do
     if conn.assigns.current_user do
       conn
     else
