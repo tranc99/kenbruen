@@ -26,6 +26,7 @@ defmodule Kenbruen.ConnCase do
       import Ecto.Query
 
       import Kenbruen.Router.Helpers
+      import Kenbruen.TestHelpers
 
       # The default endpoint for testing
       @endpoint Kenbruen.Endpoint
