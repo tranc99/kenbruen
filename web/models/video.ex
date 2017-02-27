@@ -23,17 +23,23 @@ defmodule Kenbruen.Video do
     |> assoc_constraint(:category)
   end
 
-  defp slugify_title do
+  defp slugify_title(changeset) do
     if title = get_change(changeset, :title) do
-      put_change(changeset, :slug, :slugify(title))
+      put_change(changeset, :slug, slugify(title))
     else
       changeset
     end
   end
 
   defp slugify(str) do
-    string
+    str
     |> String.downcase
     |> String.replace(~r/[^\w-]+/u, "-")
+  end
+
+  defimpl Phoenix.Param, for: Kenbruen.Video do
+    def to_param(%{slug: slug, id: id}) do
+      "#{id}-#{slug}"
+    end
   end
 end
