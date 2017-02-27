@@ -1,5 +1,6 @@
 defmodule Kenbruen.Video do
   use Kenbruen.Web, :model
+  @primary_key {:id, Kenbruen.Permalink, autogenerate: true}
 
   schema "videos" do
     field :url, :string
