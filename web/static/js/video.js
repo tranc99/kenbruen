@@ -14,6 +14,7 @@ let Video = {
   },
 
   onReady(videoId, socket) {
+    console.log("player ready!");
     let msgContainer = document.getElementById("msg-container");
     let msgInput = document.getElementById("msg-submit");
     let vidChannel = socket.channel("videos:" + videoId);
