@@ -3,6 +3,7 @@ defmodule Kenbruen.UserSocket do
 
   ## Channels
   # channel "room:*", Kenbruen.RoomChannel
+  channel "videos:*", Kenbruen.VideoChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
