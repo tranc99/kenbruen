@@ -22,11 +22,16 @@ let Video = {
 
     // handle client-side messaging
     postButton.addEventListener("click", e => {
-      let container = document.getElementById("msg-container");
-      let p = document.createElement("p");
-      p.textContent = `Ping Says: Did you see the count!`;
-      container.appendChild(p);
-    })
+      let payload = {body: msgInput.value, at: Player.getCurrentTime()};
+      vidChannel.push("new_annotation", payload)
+                .receive("error", e => console.log("Error: ", e));
+      msgInput.value = ""
+    });
+
+    vidChannel.on("new_annotation", (resp) => {
+      this.renderAnnotation(msgContainer, resp);
+    });
+    
     // join the vidChannel
     vidChannel.join()
       .receive("ok", resp => console.log("joined the video channel ", resp))
