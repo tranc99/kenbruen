@@ -34,7 +34,10 @@ let Video = {
 
     // join the vidChannel
     vidChannel.join()
-      .receive("ok", resp => console.log("joined the video channel ", resp))
+      .receive("ok", ({annotations}) =>  {
+          console.log("joined the video channel ");
+          annotations.forEach(ann => this.renderAnnotation(msgContainer, ann));
+        })
       .receive("error", reason => console.log("join failed ", reason))
 
     // handle vidChannel ping messages
