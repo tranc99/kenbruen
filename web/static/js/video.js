@@ -28,6 +28,14 @@ let Video = {
       msgInput.value = ""
     });
 
+    msgContainer.addEventListener("click", e => {
+      e.preventDefault();
+      let seconds = e.target.getAttribute("data-seek") || e.target.parentNode.getAttribute("data-seek");
+      if(!seconds) { return; }
+
+      Player.seekTo(seconds);
+    });
+
     vidChannel.on("new_annotation", (resp) => {
       this.renderAnnotation(msgContainer, resp);
     });
@@ -71,7 +79,24 @@ let Video = {
       let remaining = this.renderAtTime(annotations, ctime, msgContainer)
       this.scheduleMessages(msgContainer, remaining)
     }, 1000)
-  }
+  },
+
+  renderAtTime(annotations, seconds, msgContainer) {
+    return annotations.filter(ann => {
+      if (ann.at > seconds) {
+        return true;
+      } else {
+        this.renderAnnotation(msgContainer, ann);
+        return false;
+      }
+    })
+  },
+
+  formatTime(at) {
+    let date = new Date(null);
+    date.setSeconds(at / 1000);
+    return date.toISOString().substr(14, 5);
+  },
 }
 
 export default Video
