@@ -16,8 +16,17 @@ let Video = {
   onReady(videoId, socket) {
     console.log("player ready!");
     let msgContainer = document.getElementById("msg-container");
-    let msgInput = document.getElementById("msg-submit");
+    let msgInput = document.getElementById("msg-input");
+    let postButton = document.getElementById("msg-submit");
     let vidChannel = socket.channel("videos:" + videoId);
+
+    // handle client-side messaging
+    postButton.addEventListener("click", e => {
+      let container = document.getElementById("msg-container");
+      let p = document.createElement("p");
+      p.textContent = `Ping Says: Did you see the count!`;
+      container.appendChild(p);
+    })
     // join the vidChannel
     vidChannel.join()
       .receive("ok", resp => console.log("joined the video channel ", resp))
@@ -26,10 +35,6 @@ let Video = {
     // handle vidChannel ping messages
     vidChannel.on("ping", ({count}) => {
       console.log("What a ping, haha ", count)
-      let container = document.getElementById("msg-container");
-      let p = document.createElement("p");
-      p.textContent = `Ping Says: ${count} is the latest count!`;
-      container.appendChild(p);
     })
   }
 }
