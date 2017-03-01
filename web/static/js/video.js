@@ -31,7 +31,7 @@ let Video = {
     vidChannel.on("new_annotation", (resp) => {
       this.renderAnnotation(msgContainer, resp);
     });
-    
+
     // join the vidChannel
     vidChannel.join()
       .receive("ok", resp => console.log("joined the video channel ", resp))
@@ -41,6 +41,10 @@ let Video = {
     vidChannel.on("ping", ({count}) => {
       console.log("What a ping, haha ", count)
     })
+  },
+
+  renderAnnotation(msgContainer, {user, body, at}) {
+    // append annotation to msgContainer
   }
 }
 
