@@ -7,6 +7,7 @@ defmodule Kenbruen.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     has_many :videos, Kenbruen.Video
+    has_many :annotations, Kenbruen.Annotation
 
     timestamps
   end

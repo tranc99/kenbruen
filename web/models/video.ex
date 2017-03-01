@@ -9,6 +9,7 @@ defmodule Kenbruen.Video do
     field :slug, :string
     belongs_to :user, Kenbruen.User
     belongs_to :category, Kenbruen.Category
+    has_many :annotations, Kenbruen.Annotation
 
     timestamps()
   end
