@@ -2,11 +2,19 @@ defmodule Kenbruen.VideoChannel do
   use Kenbruen.Web, :channel
 
   def join("videos:" <> video_id, _params, socket) do
-    {:ok, socket}
-    # {:ok, assign(socket, :video_id, String.to_integer(video_id) )}
+    {:ok, assign(socket, :video_id, String.to_integer(video_id) )}
   end
 
-  def handle_in("new_annotation", params, socket) do
+  def handle_in(event, params, socket) do
+    user = Repo.get(Kenbruen.User, socket.assigns.user_id)
+    handle_in(event, params, user, socket)
+  end
+
+  def handle_in("new_annotation", params, user, socket) do
+    changeset =
+      user
+      |> build_assoc(:annotations, video_id: socket.assigns.video_id)
+  end
     broadcast! socket, "new_annotation", %{
       user: %{username: "anon"},
       body: params["body"],
