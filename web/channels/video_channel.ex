@@ -2,7 +2,6 @@ defmodule Kenbruen.VideoChannel do
   use Kenbruen.Web, :channel
 
   def join("videos:" <> video_id, _params, socket) do
-    :timer.send_interval(5_000, :ping)
     {:ok, socket}
     # {:ok, assign(socket, :video_id, String.to_integer(video_id) )}
   end
