@@ -11,7 +11,10 @@ defmodule Kenbruen.Auth do
   def call(conn, repo) do
     user_id = get_session(conn, :user_id)
     user = user_id && repo.get(Kenbruen.User, user_id)
-    assign(conn, :current_user, user)
+    token = user && Phoenix.Token.sign(conn, "user socket", user.id)
+    conn
+    |> assign(:current_user, user)
+    |> assign(:user_token, token)
     # cond do
     #   user = conn.assigns[:current_user] ->
     #     conn
