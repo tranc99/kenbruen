@@ -26,6 +26,10 @@ let Video = {
     // handle vidChannel ping messages
     vidChannel.on("ping", ({count}) => {
       console.log("What a ping, haha ", count)
+      let container = document.getElementById("msg-container");
+      let p = document.createElement("p");
+      p.textContent = `Ping Says: ${count} is the latest count!`;
+      container.appendChild(p);
     })
   }
 }
