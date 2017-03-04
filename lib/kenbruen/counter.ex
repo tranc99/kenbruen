@@ -20,7 +20,7 @@ defmodule Kenbruen.Counter do
 
   def handle_info(:tick, val) when val <= 0, do: raise "boom!"
   def handle_info(:tick, val) do
-    IO.puts "tick #{val}"
+    # IO.puts "tick #{val}"
     Process.send_after(self, :tick, 1000)
     {:noreply, val - 1}
   end
