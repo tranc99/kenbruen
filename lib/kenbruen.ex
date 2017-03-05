@@ -12,7 +12,7 @@ defmodule Kenbruen do
       supervisor(Kenbruen.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Kenbruen.Endpoint, []),
-      supervisor(Kenbruen.InfoSys.Supervisor, [])
+      supervisor(Kenbruen.InfoSys.Supervisor, []),
       # Start your own worker by calling: Kenbruen.Worker.start_link(arg1, arg2, arg3)
       # worker(Kenbruen.Worker, [arg1, arg2, arg3]),
       worker(Kenbruen.Counter, [5], restart: :permanent),
