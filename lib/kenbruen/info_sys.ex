@@ -17,12 +17,16 @@ defmodule Kenbruen.InfoSys do
 
     backends
     |> Enum.map(&spawn_query(&1, query, limit))
+    |> await_results(opts)
+    |> Enum.sort(&(&1.score >= &2.score))
+    |> Enum.take(limit)
   end
 
   defp spawn_query(backend, query, limit) do
     query_ref = make_ref()
     opts = [backend, query, query_ref, self(), limit]
     {:ok, pid} = Supervisor.start_child(Kenbruen.InfoSys.Supervisor, opts)
-    {pid, query_ref}
+    monitor_ref = Process.monitor(pid)
+    {pid, monitor_ref, query_ref}
   end
 end
