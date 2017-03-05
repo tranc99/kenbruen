@@ -29,4 +29,26 @@ defmodule Kenbruen.InfoSys do
     monitor_ref = Process.monitor(pid)
     {pid, monitor_ref, query_ref}
   end
+
+  defp await_results(children, opts) do
+    await_result(children, [], :infinity)
+  end
+
+  defp await_result([head|tail], acc, timeout) do
+
+    {pid, monitor_ref, query_ref} = head
+
+    receive do
+      {:results, ^query_ref, results} ->
+        Process.demonitor(monitor_ref, [:flush])
+
+        await_result(tail, results ++ acc, timeout)
+      {:DOWN, ^monitor_ref, :process, ^pid, _reason} ->
+        await_result(tail, acc, timeout)
+    end
+  end
+
+  defp await_result([], acc, _) do
+    acc
+  end
 end
