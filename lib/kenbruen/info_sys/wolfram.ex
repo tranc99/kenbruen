@@ -21,7 +21,7 @@ defmodule Kenbruen.InfoSys.Wolfram do
   end
 
   defp send_results(answer, query_ref, owner) do
-    results = [%Result{backend: "wolfram", score: 95, text: to_string(answer) }]
+    results = [%Result{backend: "wolfram", score: 10, text: to_string(answer) }]
     send(owner, {:results, query_ref, results})
   end
 
