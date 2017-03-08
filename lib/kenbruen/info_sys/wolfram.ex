@@ -10,8 +10,9 @@ defmodule Kenbruen.InfoSys.Wolfram do
   def fetch(query_str, query_ref, owner, limit) do
     query_str
     |> fetch_xml()
-    |> xpath(~x"/queryresult/pod[contains(@title, 'Result') or contains(@title, 'Definitions')]
-                                                              /subpod/plaintext/text()")
+    |> xpath(~x"/queryresult/pod[contains(@title, 'Result') or
+                          contains(@title, 'Definitions')]
+                    /subpod/plaintext/text()")
     |> send_results(query_ref, owner)
   end
 
@@ -33,5 +34,5 @@ defmodule Kenbruen.InfoSys.Wolfram do
     body
   end
 
-  defp app_id, do: Application.get_env(:kenbruen, :wolfram)[:app_id] 
+  defp app_id, do: Application.get_env(:kenbruen, :wolfram)[:app_id]
 end
